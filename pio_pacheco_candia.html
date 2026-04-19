@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I.E. Pio Pacheco Candia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0d2240; --navy-mid: #1a3a5c;
+    --cream: #f5ecd8; --cream-dark: #ede0c4;
+    --white: #fdfaf4; --text: #0d2240; --text-muted: #3a5070;
+    --red: #b02a2a; --green: #1a7a4c;
+    --radius: 12px; --shadow: 0 8px 40px rgba(13,34,64,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); line-height: 1.7; }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,34,64,0.97); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 64px; border-bottom: 1px solid rgba(245,236,216,0.2); }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo-circle { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #f5ecd8, #dce8f5); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 900; font-size: 16px; color: var(--navy); flex-shrink: 0; }
+  .nav-name { font-size: 13px; font-weight: 500; color: var(--white); line-height: 1.3; max-width: 200px; }
+  .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-btn { background: var(--cream) !important; color: var(--navy) !important; font-weight: 500 !important; padding: 8px 18px; border-radius: 40px; }
+  .nav-btn:hover { background: var(--cream-dark) !important; }
+  .nav-user { display: flex; align-items: center; gap: 10px; }
+  .nav-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--cream); color: var(--navy); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-username { font-size: 13px; color: rgba(255,255,255,0.85); max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .nav-logout { background: none; border: 1px solid rgba(245,236,216,0.3); color: rgba(255,255,255,0.6); font-size: 12px; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+  .nav-logout:hover { border-color: var(--cream); color: var(--cream); }
+  .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); transition: 0.3s; }
+
+  /* ── HERO ── */
+  #hero { min-height: 100vh; background: linear-gradient(160deg, rgba(13,34,64,0.93) 0%, rgba(26,58,92,0.80) 60%, rgba(13,34,64,0.90) 100%), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80') center/cover no-repeat; display: flex; align-items: center; padding: 100px 5% 60px; position: relative; overflow: hidden; }
+  #hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(245,236,216,0.07), transparent); pointer-events: none; }
+  .hero-inner { max-width: 680px; position: relative; z-index: 1; }
+  .hero-tag { display: inline-block; background: rgba(245,236,216,0.12); border: 1px solid rgba(245,236,216,0.35); color: var(--cream); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 16px; border-radius: 40px; margin-bottom: 28px; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; }
+  .hero-title span { color: var(--cream); }
+  .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.70); margin-bottom: 40px; max-width: 520px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--cream); color: var(--navy); font-weight: 500; font-size: 14px; padding: 14px 28px; border-radius: 40px; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--cream-dark); transform: translateY(-1px); }
+  .btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 1.5px solid rgba(255,255,255,0.4); color: var(--white); font-size: 14px; padding: 14px 28px; border-radius: 40px; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+  .btn-outline:hover { border-color: var(--cream); background: rgba(245,236,216,0.1); }
+  .hero-stats { display: flex; gap: 40px; margin-top: 60px; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 32px; }
+  .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--cream); line-height: 1; }
+  .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.50); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+  /* ── SECTIONS ── */
+  section { padding: 88px 5%; }
+  .section-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy-mid); font-weight: 500; margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 16px; }
+  .section-desc { color: var(--text-muted); font-size: 1rem; max-width: 560px; margin-bottom: 48px; }
+
+  /* ── INFO ── */
+  #informacion { background: var(--white); }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; }
+  .info-card { background: var(--cream); border-radius: var(--radius); padding: 32px; border: 1px solid rgba(13,34,64,0.07); transition: box-shadow 0.2s; }
+  .info-card:hover { box-shadow: var(--shadow); }
+  .info-card-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--navy); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+  .info-card-icon svg { width: 20px; height: 20px; fill: var(--cream); }
+  .info-card h3 { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .info-card p { font-size: 0.93rem; color: var(--text-muted); line-height: 1.75; }
+  .horarios-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .horarios-table th { text-align: left; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 8px 12px; border-bottom: 1px solid rgba(13,34,64,0.1); }
+  .horarios-table td { padding: 10px 12px; font-size: 0.9rem; border-bottom: 1px solid rgba(13,34,64,0.05); color: var(--text); }
+  .horarios-table tr:last-child td { border-bottom: none; }
+  .badge-open { display: inline-block; background: #e6f7ef; color: #1a7a4c; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+  .badge-closed { display: inline-block; background: #fde8e8; color: #b02a2a; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+
+  /* ── GALERÍA ── */
+  #galeria { background: var(--cream); }
+  .upload-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 40px; }
+  .btn-upload { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: var(--cream); font-weight: 500; font-size: 14px; padding: 13px 26px; border-radius: 40px; border: none; cursor: pointer; font-family: inherit; transition: background 0.2s, transform 0.15s; }
+  .btn-upload:hover { background: var(--navy-mid); transform: translateY(-1px); }
+  .btn-upload svg { width: 16px; height: 16px; stroke: var(--cream); fill: none; flex-shrink: 0; }
+  .btn-upload-locked { background: rgba(13,34,64,0.3); cursor: default; }
+  .btn-upload-locked:hover { background: rgba(13,34,64,0.3); transform: none; }
+  .locked-note { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .locked-note svg { width: 14px; height: 14px; stroke: var(--text-muted); fill: none; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .gallery-card { border-radius: var(--radius); overflow: hidden; background: var(--white); box-shadow: 0 2px 12px rgba(13,34,64,0.07); transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; }
+  .gallery-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .gallery-img-wrap { position: relative; height: 200px; overflow: hidden; }
+  .gallery-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; display: block; }
+  .gallery-card:hover .gallery-img-wrap img { transform: scale(1.05); }
+  .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,34,64,0.80), rgba(13,34,64,0.08)); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; justify-content: space-between; padding: 12px 14px; }
+  .gallery-card:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay-text { color: var(--white); font-size: 13px; }
+  .card-actions { display: flex; gap: 6px; }
+  .card-btn { width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.15s; }
+  .card-btn:hover { transform: scale(1.12); }
+  .card-btn-edit { background: rgba(245,236,216,0.93); }
+  .card-btn-edit svg { stroke: var(--navy); fill: none; width: 14px; height: 14px; }
+  .card-btn-delete { background: rgba(176,42,42,0.90); }
+  .card-btn-delete svg { stroke: #fff; fill: none; width: 14px; height: 14px; }
+  .gallery-info { padding: 16px 18px; }
+  .gallery-user-badge { display: inline-block; background: rgba(13,34,64,0.08); color: var(--navy-mid); font-size: 10px; padding: 2px 8px; border-radius: 12px; margin-bottom: 6px; }
+  .gallery-category { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy-mid); font-weight: 500; margin-bottom: 5px; }
+  .gallery-title { font-size: 0.9rem; font-weight: 500; color: var(--navy); line-height: 1.4; margin-bottom: 4px; }
+  .gallery-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 4px; }
+  .gallery-date { font-size: 11px; color: #8fa8c8; }
+
+  /* ── MODALES BASE ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(7,18,32,0.90); align-items: center; justify-content: center; padding: 16px; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: var(--white); border-radius: 18px; max-width: 520px; width: 100%; max-height: 92vh; overflow-y: auto; animation: fadeUp 0.25s ease; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  .modal-header { background: var(--navy); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; border-radius: 18px 18px 0 0; position: sticky; top: 0; z-index: 1; }
+  .modal-header h3 { color: var(--cream); font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+  .modal-close { background: rgba(245,236,216,0.15); border: none; color: var(--cream); width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .modal-close:hover { background: rgba(245,236,216,0.3); }
+  .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
+  .modal-tabs { display: flex; border-bottom: 1px solid rgba(13,34,64,0.1); margin-bottom: 4px; }
+  .modal-tab { flex: 1; padding: 10px; text-align: center; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; }
+  .modal-tab.active { color: var(--navy); border-bottom-color: var(--navy); }
+  .tab-panel { display: none; flex-direction: column; gap: 16px; }
+  .tab-panel.active { display: flex; }
+
+  /* Drop zone */
+  .drop-zone { border: 2px dashed rgba(13,34,64,0.25); border-radius: 12px; min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: var(--cream); position: relative; overflow: hidden; }
+  .drop-zone:hover { border-color: var(--navy); background: var(--cream-dark); }
+  .drop-zone.has-img { border-style: solid; border-color: var(--navy); padding: 0; min-height: auto; }
+  .drop-zone img { width: 100%; max-height: 240px; object-fit: cover; display: none; border-radius: 10px; }
+  .drop-hint { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 24px; }
+  .drop-hint svg { width: 36px; height: 36px; stroke: var(--navy-mid); fill: none; }
+  .drop-hint p { font-size: 13px; color: var(--text-muted); text-align: center; line-height: 1.5; }
+  .drop-hint strong { color: var(--navy); }
+  .drop-hint small { font-size: 11px; color: #8fa8c8; }
+  .change-btn { font-size: 12px; color: var(--navy); background: rgba(245,236,216,0.90); border: none; cursor: pointer; font-family: inherit; padding: 6px 14px; border-radius: 20px; position: absolute; bottom: 10px; right: 10px; }
+
+  /* Campos de formulario */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 500; color: var(--navy); }
+  .field input, .field textarea, .field select { border: 1.5px solid rgba(13,34,64,0.2); border-radius: 8px; padding: 10px 14px; font-size: 14px; font-family: inherit; color: var(--text); background: var(--white); transition: border-color 0.2s; outline: none; resize: none; }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--navy); }
+  .field .counter { font-size: 11px; color: var(--text-muted); text-align: right; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .req { color: var(--red); }
+  .error-msg { background: #fde8e8; color: var(--red); font-size: 13px; padding: 10px 14px; border-radius: 8px; display: none; }
+  .success-msg { background: #e6f7ef; color: var(--green); font-size: 13px; padding: 10px 14px; border-radius: 8px; display: none; }
+  .modal-actions { display: flex; gap: 12px; }
+  .btn-cancel { flex: 1; padding: 13px; border: 1.5px solid var(--navy); background: transparent; color: var(--navy); border-radius: 40px; font-size: 14px; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+  .btn-cancel:hover { background: rgba(13,34,64,0.06); }
+  .btn-publish { flex: 2; padding: 13px; background: var(--navy); color: var(--cream); border: none; border-radius: 40px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+  .btn-publish:hover { background: var(--navy-mid); }
+  .btn-publish:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-danger { background: var(--red); color: #fff; }
+  .btn-danger:hover { background: #8b1a1a; }
+
+  /* ── PANEL ADMIN ── */
+  .admin-panel { background: var(--white); border-radius: var(--radius); border: 1px solid rgba(13,34,64,0.1); overflow: hidden; }
+  .admin-panel-header { background: var(--navy); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+  .admin-panel-header h4 { color: var(--cream); font-size: 14px; font-weight: 500; }
+  .admin-panel-header span { color: rgba(245,236,216,0.6); font-size: 12px; }
+  .user-row { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-bottom: 1px solid rgba(13,34,64,0.06); transition: background 0.15s; }
+  .user-row:last-child { border-bottom: none; }
+  .user-row:hover { background: rgba(13,34,64,0.02); }
+  .user-avatar-sm { width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: var(--cream); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .user-info { flex: 1; min-width: 0; }
+  .user-info-name { font-size: 13px; font-weight: 500; color: var(--navy); }
+  .user-info-email { font-size: 11px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .user-info-date { font-size: 10px; color: #8fa8c8; }
+  .badge-admin { background: rgba(13,34,64,0.12); color: var(--navy); font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
+  .btn-revoke { background: #fde8e8; color: var(--red); border: none; font-size: 12px; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-family: inherit; transition: background 0.2s; white-space: nowrap; }
+  .btn-revoke:hover { background: #f9c0c0; }
+  .empty-users { text-align: center; padding: 32px; color: var(--text-muted); font-size: 13px; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(7,18,32,0.95); align-items: center; justify-content: center; padding: 24px; }
+  .lightbox.active { display: flex; }
+  .lightbox-inner { max-width: 780px; width: 100%; background: var(--navy); border-radius: 16px; overflow: hidden; animation: fadeUp 0.25s ease; }
+  .lightbox-inner img { width: 100%; display: block; max-height: 500px; object-fit: cover; }
+  .lightbox-caption { padding: 20px 24px; }
+  .lightbox-caption h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 4px; }
+  .lb-desc { font-size: 0.875rem; color: rgba(255,255,255,0.65); margin-bottom: 4px; }
+  .lb-date { font-size: 12px; color: rgba(255,255,255,0.4); }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; background: rgba(255,255,255,0.1); border: none; color: var(--white); width: 36px; height: 36px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 48px 5% 32px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  footer h4 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1rem; margin-bottom: 16px; }
+  footer p, footer a { font-size: 0.875rem; color: rgba(255,255,255,0.55); text-decoration: none; display: block; margin-bottom: 8px; transition: color 0.2s; }
+  footer a:hover { color: var(--cream); }
+  .footer-bottom { background: rgba(0,0,0,0.2); padding: 16px 5%; text-align: center; font-size: 12px; color: rgba(255,255,255,0.35); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--navy); padding: 20px 5%; gap: 16px; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .info-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .nav-username { display: none; }
+  }
+  @media (max-width: 480px) {
+    .hero-stats { flex-direction: column; gap: 16px; }
+    .hero-actions { flex-direction: column; }
+    .modal-actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-circle">PP</div>
+    <div class="nav-name">I.E. Pio Pacheco Candia</div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#informacion">Institución</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li id="navUploadLi" style="display:none"><a href="#galeria" onclick="setTimeout(abrirModal,200)" class="nav-btn">Subir Foto</a></li>
+    <li id="navAuthLi">
+      <a href="#" onclick="abrirAuthModal()" class="nav-btn">Iniciar sesión</a>
+    </li>
+    <li id="navUserLi" style="display:none">
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">?</div>
+        <span class="nav-username" id="navUsername"></span>
+        <button class="nav-logout" onclick="cerrarSesion()">Salir</button>
+      </div>
+    </li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Institución Educativa — Pinahua, Parinacochas</div>
+    <h1 class="hero-title">Pio<br><span>Pacheco</span><br>Candia</h1>
+    <p class="hero-sub">Formando estudiantes con valores, conocimiento y vocación de servicio para el desarrollo de nuestra comunidad.</p>
+    <div class="hero-actions">
+      <a href="#informacion" class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Conocer la institución
+      </a>
+      <a href="#galeria" class="btn-outline">Ver galería de actividades</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num">+20</div><div class="hero-stat-label">Años de historia</div></div>
+      <div><div class="hero-stat-num">Pinahua</div><div class="hero-stat-label">Parinacochas, Ayacucho</div></div>
+      <div><div class="hero-stat-num">100%</div><div class="hero-stat-label">Compromiso educativo</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFORMACIÓN -->
+<section id="informacion">
+  <div class="section-label">Sobre nosotros</div>
+  <h2 class="section-title">Nuestra Institución</h2>
+  <p class="section-desc">Conoce quiénes somos, nuestra historia, lo que nos mueve y cuándo puedes visitarnos.</p>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+      <h3>Historia</h3>
+      <p>La Institución Educativa Pio Pacheco Candia nació con el propósito de brindar una educación de calidad a los estudiantes del distrito de Pinahua, en la provincia de Parinacochas, Ayacucho. Desde sus inicios, ha sido un espacio de aprendizaje, convivencia y formación integral para generaciones de jóvenes.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><svg viewBox="0 0 24 24"><path d="M17 2H7C5.9 2 5 2.9 5 4v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 18c-.83 0-1.5-.67-1.5-1.5S11.17 17 12 17s1.5.67 1.5 1.5S12.83 20 12 20zm5-4H7V4h10v12z"/></svg></div>
+      <h3>Misión</h3>
+      <p>Brindar una educación inclusiva, equitativa y de calidad que promueva el desarrollo integral de nuestros estudiantes, fomentando el pensamiento crítico, los valores éticos y el amor por la cultura local, preparándolos para los retos de la sociedad actual.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+      <h3>Visión</h3>
+      <p>Ser una institución educativa líder en la región de Parinacochas, reconocida por su excelencia académica, su enfoque en la identidad cultural andina y su capacidad de formar ciudadanos comprometidos con el desarrollo sostenible de su comunidad.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div>
+      <h3>Horarios de atención</h3>
+      <table class="horarios-table">
+        <thead><tr><th>Día</th><th>Turno mañana</th><th>Estado</th></tr></thead>
+        <tbody>
+          <tr><td>Lunes – Viernes</td><td>7:30 am – 1:00 pm</td><td><span class="badge-open">Abierto</span></td></tr>
+          <tr><td>Sábado</td><td>–</td><td><span class="badge-closed">Cerrado</span></td></tr>
+          <tr><td>Domingo</td><td>–</td><td><span class="badge-closed">Cerrado</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="upload-bar">
+    <div>
+      <div class="section-label">Vida escolar</div>
+      <h2 class="section-title" style="margin-bottom:0;">Galería de actividades</h2>
+    </div>
+    <div id="uploadArea">
+      <div class="locked-note" id="lockedNote">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <a href="#" onclick="abrirAuthModal()" style="color:var(--navy-mid);text-decoration:underline;">Inicia sesión</a>&nbsp;para subir fotos
+      </div>
+      <button class="btn-upload" id="uploadBtn" style="display:none" onclick="abrirModal()">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+        Subir mi foto
+      </button>
+    </div>
+  </div>
+  <div class="gallery-grid" id="galleryGrid">
+    <div class="gallery-card" onclick="abrirLightbox(this)">
+      <div class="gallery-img-wrap">
+        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=600&q=80" alt="Día del logro" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Ver detalle</div></div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-category">Académico</div>
+        <div class="gallery-title">Día del Logro — Exposición de proyectos</div>
+        <div class="gallery-desc">Los estudiantes presentaron sus proyectos de investigación ante la comunidad educativa.</div>
+        <div class="gallery-date">Junio 2024</div>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="abrirLightbox(this)">
+      <div class="gallery-img-wrap">
+        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80" alt="Fiestas Patrias" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Ver detalle</div></div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-category">Festividad</div>
+        <div class="gallery-title">Desfile escolar por Fiestas Patrias</div>
+        <div class="gallery-desc">Nuestros alumnos participaron con orgullo en el desfile central del distrito.</div>
+        <div class="gallery-date">Julio 2024</div>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="abrirLightbox(this)">
+      <div class="gallery-img-wrap">
+        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=600&q=80" alt="Feria de ciencias" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Ver detalle</div></div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-category">Ciencias</div>
+        <div class="gallery-title">Feria de Ciencia y Tecnología</div>
+        <div class="gallery-desc">Experimentos en acción: los estudiantes demostraron sus habilidades científicas.</div>
+        <div class="gallery-date">Agosto 2024</div>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="abrirLightbox(this)">
+      <div class="gallery-img-wrap">
+        <img src="https://images.unsplash.com/photo-1529148482759-b35b25c5f217?w=600&q=80" alt="Deportes" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Ver detalle</div></div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-category">Deportes</div>
+        <div class="gallery-title">Olimpiadas escolares — Fútbol</div>
+        <div class="gallery-desc">El campeonato interno reunió a todos los grados en una jornada deportiva inolvidable.</div>
+        <div class="gallery-date">Septiembre 2024</div>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="abrirLightbox(this)">
+      <div class="gallery-img-wrap">
+        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80" alt="Lectura" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Ver detalle</div></div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-category">Cultura</div>
+        <div class="gallery-title">Maratón de lectura</div>
+        <div class="gallery-desc">Promovemos el hábito lector con actividades dinámicas para todos los niveles.</div>
+        <div class="gallery-date">Octubre 2024</div>
+      </div>
+    </div>
+    <div class="gallery-card" onclick="abrirLightbox(this)">
+      <div class="gallery-img-wrap">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=80" alt="Arte" loading="lazy">
+        <div class="gallery-overlay"><div class="gallery-overlay-text">Ver detalle</div></div>
+      </div>
+      <div class="gallery-info">
+        <div class="gallery-category">Arte</div>
+        <div class="gallery-title">Muestra artística anual</div>
+        <div class="gallery-desc">Pintura, dibujo y artesanía local protagonizaron esta celebración del talento estudiantil.</div>
+        <div class="gallery-date">Noviembre 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MODAL: LOGIN / REGISTRO
+═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="authModal" onclick="cerrarAuthSiOverlay(event)">
+  <div class="modal-box" style="max-width:440px;">
+    <div class="modal-header">
+      <h3 id="authModalTitle">Acceder a la galería</h3>
+      <button class="modal-close" onclick="cerrarAuthModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tabLoginBtn" onclick="mostrarTab('login')">Iniciar sesión</button>
+        <button class="modal-tab" id="tabRegBtn" onclick="mostrarTab('registro')">Crear cuenta</button>
+      </div>
+
+      <!-- Login -->
+      <div class="tab-panel active" id="panelLogin">
+        <div class="field">
+          <label for="loginEmail">Correo Gmail <span class="req">*</span></label>
+          <input type="email" id="loginEmail" placeholder="tucorreo@gmail.com">
+        </div>
+        <div class="field">
+          <label for="loginPass">Contraseña <span class="req">*</span></label>
+          <input type="password" id="loginPass" placeholder="••••••••">
+        </div>
+        <p class="error-msg" id="loginError"></p>
+        <button class="btn-publish" onclick="iniciarSesion()">Ingresar</button>
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;">¿No tienes cuenta? <a href="#" onclick="mostrarTab('registro')" style="color:var(--navy);">Regístrate aquí</a></p>
+      </div>
+
+      <!-- Registro -->
+      <div class="tab-panel" id="panelRegistro">
+        <div class="field">
+          <label for="regNombre">Nombre completo <span class="req">*</span></label>
+          <input type="text" id="regNombre" placeholder="Ej: María García" maxlength="60">
+        </div>
+        <div class="field">
+          <label for="regEmail">Correo Gmail <span class="req">*</span></label>
+          <input type="email" id="regEmail" placeholder="tucorreo@gmail.com">
+        </div>
+        <div class="field">
+          <label for="regPass">Contraseña <span class="req">*</span></label>
+          <input type="password" id="regPass" placeholder="Mínimo 6 caracteres" minlength="6">
+        </div>
+        <div class="field">
+          <label for="regPass2">Repetir contraseña <span class="req">*</span></label>
+          <input type="password" id="regPass2" placeholder="Repite la contraseña">
+        </div>
+        <p class="error-msg" id="regError"></p>
+        <p class="success-msg" id="regSuccess"></p>
+        <button class="btn-publish" onclick="registrarUsuario()">Crear cuenta</button>
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;">¿Ya tienes cuenta? <a href="#" onclick="mostrarTab('login')" style="color:var(--navy);">Inicia sesión</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: PANEL DE ADMINISTRACIÓN
+═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="adminModal" onclick="cerrarAdminSiOverlay(event)">
+  <div class="modal-box" style="max-width:580px;">
+    <div class="modal-header">
+      <h3>Panel de administración</h3>
+      <button class="modal-close" onclick="cerrarAdminModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text-muted);">Gestiona los usuarios registrados. Puedes revocar su acceso en cualquier momento.</p>
+      <div class="admin-panel">
+        <div class="admin-panel-header">
+          <h4>Usuarios registrados</h4>
+          <span id="adminUserCount">0 usuarios</span>
+        </div>
+        <div id="adminUserList">
+          <div class="empty-users">No hay usuarios registrados aún.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     MODAL: SUBIR FOTO
+═══════════════════════════════════════════ -->
+<div class="modal-overlay" id="uploadModal" onclick="cerrarSiOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Subir una foto a la galería</h3>
+      <button class="modal-close" onclick="cerrarModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <img id="previewImg" src="" alt="Vista previa">
+        <div class="drop-hint" id="dropHint">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+          <p><strong>Toca aquí para elegir una foto</strong><br>desde tu galería o tomar una nueva con la cámara</p>
+          <small>JPG, PNG, WEBP — máx. 10 MB</small>
+        </div>
+        <button class="change-btn" id="cambiarBtn" style="display:none" onclick="event.stopPropagation();document.getElementById('fileInput').click()">Cambiar foto</button>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="onFileSelected(event)">
+      <div class="field">
+        <label for="fotoTitulo">Título <span class="req">*</span></label>
+        <input type="text" id="fotoTitulo" placeholder="Ej: Día del Logro 2025" maxlength="80">
+      </div>
+      <div class="field">
+        <label for="fotoDesc">Descripción breve <span class="req">*</span></label>
+        <textarea id="fotoDesc" rows="3" placeholder="Cuenta qué pasó en esta foto..." maxlength="200"></textarea>
+        <div class="counter" id="descCounter">0 / 200</div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="fotoCategoria">Categoría</label>
+          <select id="fotoCategoria">
+            <option value="Actividad">Actividad</option>
+            <option value="Académico">Académico</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Arte">Arte</option>
+            <option value="Cultura">Cultura</option>
+            <option value="Festividad">Festividad</option>
+            <option value="Ciencias">Ciencias</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Subido por</label>
+          <input type="text" id="fotoAutorDisplay" readonly style="background:rgba(13,34,64,0.05);color:var(--text-muted);">
+        </div>
+      </div>
+      <p class="error-msg" id="errorMsg"></p>
+      <p class="success-msg" id="successMsg"></p>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+        <button class="btn-publish" id="btnPublicar" onclick="publicarFoto()">Publicar en la galería</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EDITAR -->
+<div class="modal-overlay" id="editModal" onclick="cerrarEditSiOverlay(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Editar publicación</h3>
+      <button class="modal-close" onclick="cerrarEditModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editCardId">
+      <div class="drop-zone has-img" id="editDropZone" onclick="document.getElementById('editFileInput').click()" style="cursor:pointer;">
+        <img id="editPreviewImg" src="" alt="Vista previa" style="display:block;width:100%;max-height:220px;object-fit:cover;border-radius:10px;">
+        <button class="change-btn" onclick="event.stopPropagation();document.getElementById('editFileInput').click()">Cambiar foto</button>
+      </div>
+      <input type="file" id="editFileInput" accept="image/*" style="display:none" onchange="onEditFileSelected(event)">
+      <div class="field">
+        <label for="editTitulo">Título <span class="req">*</span></label>
+        <input type="text" id="editTitulo" maxlength="80">
+      </div>
+      <div class="field">
+        <label for="editDesc">Descripción breve <span class="req">*</span></label>
+        <textarea id="editDesc" rows="3" maxlength="200"></textarea>
+        <div class="counter" id="editDescCounter">0 / 200</div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="editCategoria">Categoría</label>
+          <select id="editCategoria">
+            <option value="Actividad">Actividad</option>
+            <option value="Académico">Académico</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Arte">Arte</option>
+            <option value="Cultura">Cultura</option>
+            <option value="Festividad">Festividad</option>
+            <option value="Ciencias">Ciencias</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="editAutor">Subido por</label>
+          <input type="text" id="editAutor" maxlength="40">
+        </div>
+      </div>
+      <p class="error-msg" id="editErrorMsg"></p>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="cerrarEditModal()">Cancelar</button>
+        <button class="btn-publish" onclick="guardarEdicion()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMAR BORRAR -->
+<div class="modal-overlay" id="deleteModal" onclick="cerrarDeleteSiOverlay(event)">
+  <div class="modal-box" style="max-width:380px;">
+    <div class="modal-header" style="background:#8b1a1a;">
+      <h3>Borrar publicación</h3>
+      <button class="modal-close" onclick="cerrarDeleteModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;">¿Estás seguro de que quieres borrar esta publicación? Esta acción no se puede deshacer.</p>
+      <input type="hidden" id="deleteCardId">
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="cerrarDeleteModal()">Cancelar</button>
+        <button class="btn-publish btn-danger" onclick="confirmarBorrar()">Sí, borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
+  <button class="lightbox-close" onclick="cerrarLightbox(null,true)">✕</button>
+  <div class="lightbox-inner">
+    <img id="lbImg" src="" alt="">
+    <div class="lightbox-caption">
+      <h3 id="lbTitle"></h3>
+      <p class="lb-desc" id="lbDesc"></p>
+      <p class="lb-date" id="lbDate"></p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <h4>I.E. Pio Pacheco Candia</h4>
+    <p>Institución educativa comprometida con la formación integral de nuestros estudiantes en el distrito de Pinahua.</p>
+  </div>
+  <div>
+    <h4>Acceso rápido</h4>
+    <a href="#informacion">Sobre nosotros</a>
+    <a href="#informacion">Misión y visión</a>
+    <a href="#galeria">Galería</a>
+    <a href="#" onclick="abrirAuthModal()">Área de usuarios</a>
+  </div>
+  <div>
+    <h4>Contacto</h4>
+    <p>Pinahua, Parinacochas</p>
+    <p>Ayacucho, Perú</p>
+    <a href="https://wa.me/51925693504" target="_blank">WhatsApp: +51 925 693 504</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  © 2025 Institución Educativa Pio Pacheco Candia — Todos los derechos reservados.
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════ -->
+<script>
+/* ═══════════════════════════════════
+   CONSTANTES DE STORAGE
+═══════════════════════════════════ */
+const STORAGE_USERS  = 'ppc_usuarios_v1';
+const STORAGE_FOTOS  = 'ppc_galeria_v3';
+const STORAGE_SESSION = 'ppc_session_v1';
+// Usuario administrador maestro (puede acceder al panel de usuarios)
+const ADMIN_EMAIL = 'admin@pinahua.edu.pe';
+
+/* ═══════════════════════════════════
+   ESTADO GLOBAL
+═══════════════════════════════════ */
+let sesionActual = null;  // { email, nombre, esAdmin }
+let fotoDataURL  = null;
+let editDataURL  = null;
+
+/* ═══════════════════════════════════
+   UTILIDADES DE STORAGE
+═══════════════════════════════════ */
+function getUsuarios() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_USERS) || '[]'); } catch(e) { return []; }
+}
+function setUsuarios(u) {
+  try { localStorage.setItem(STORAGE_USERS, JSON.stringify(u)); } catch(e) {}
+}
+function getFotos() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_FOTOS) || '[]'); } catch(e) { return []; }
+}
+function setFotos(f) {
+  try { localStorage.setItem(STORAGE_FOTOS, JSON.stringify(f)); } catch(e) {}
+}
+function hashSimple(str) {
+  // Hash básico para contraseña (no criptográfico, solo ofuscación local)
+  let h = 0;
+  for (let i = 0; i < str.length; i++) { h = Math.imul(31, h) + str.charCodeAt(i) | 0; }
+  return h.toString(16);
+}
+
+/* ═══════════════════════════════════
+   SESIÓN
+═══════════════════════════════════ */
+function cargarSesion() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_SESSION));
+    if (s && s.email) {
+      // Verificar que el usuario sigue activo
+      const usuarios = getUsuarios();
+      const existe = usuarios.find(u => u.email === s.email) || s.email === ADMIN_EMAIL;
+      if (existe) { sesionActual = s; actualizarNav(); cargarFotosGuardadas(); return; }
+    }
+  } catch(e) {}
+  sesionActual = null;
+  actualizarNav();
+  cargarFotosGuardadas();
+}
+
+function actualizarNav() {
+  const authLi   = document.getElementById('navAuthLi');
+  const userLi   = document.getElementById('navUserLi');
+  const uploadLi = document.getElementById('navUploadLi');
+  const uploadBtn = document.getElementById('uploadBtn');
+  const lockedNote = document.getElementById('lockedNote');
+
+  if (sesionActual) {
+    authLi.style.display  = 'none';
+    userLi.style.display  = 'list-item';
+    uploadLi.style.display = 'list-item';
+    uploadBtn.style.display = 'inline-flex';
+    lockedNote.style.display = 'none';
+    document.getElementById('navAvatar').textContent = sesionActual.nombre.charAt(0).toUpperCase();
+    document.getElementById('navUsername').textContent = sesionActual.nombre;
+    document.getElementById('fotoAutorDisplay').value = sesionActual.nombre;
+    // Mostrar botón admin en nav si es admin
+    if (sesionActual.esAdmin) agregarBtnAdmin();
+  } else {
+    authLi.style.display  = 'list-item';
+    userLi.style.display  = 'none';
+    uploadLi.style.display = 'none';
+    uploadBtn.style.display = 'none';
+    lockedNote.style.display = 'flex';
+  }
+  // Actualizar botones en cards existentes
+  actualizarBotonesCards();
+}
+
+function agregarBtnAdmin() {
+  if (document.getElementById('navAdminLi')) return;
+  const li = document.createElement('li');
+  li.id = 'navAdminLi';
+  li.innerHTML = `<a href="#" onclick="abrirAdminModal()" style="color:var(--cream);font-size:11px;text-transform:uppercase;letter-spacing:0.06em;">⚙ Admin</a>`;
+  document.getElementById('navLinks').insertBefore(li, document.getElementById('navUserLi'));
+}
+
+function cerrarSesion() {
+  sesionActual = null;
+  localStorage.removeItem(STORAGE_SESSION);
+  const adminLi = document.getElementById('navAdminLi');
+  if (adminLi) adminLi.remove();
+  actualizarNav();
+}
+
+/* ═══════════════════════════════════
+   MODAL AUTH (LOGIN / REGISTRO)
+═══════════════════════════════════ */
+function abrirAuthModal() {
+  if (sesionActual) { abrirAdminModal(); return; }
+  mostrarTab('login');
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').style.display = 'none';
+  document.getElementById('authModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarAuthModal() {
+  document.getElementById('authModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function cerrarAuthSiOverlay(e) {
+  if (e.target === document.getElementById('authModal')) cerrarAuthModal();
+}
+
+function mostrarTab(tab) {
+  document.getElementById('panelLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('panelRegistro').classList.toggle('active', tab === 'registro');
+  document.getElementById('tabLoginBtn').classList.toggle('active', tab === 'login');
+  document.getElementById('tabRegBtn').classList.toggle('active', tab === 'registro');
+  document.getElementById('authModalTitle').textContent = tab === 'login' ? 'Acceder a la galería' : 'Crear una cuenta';
+}
+
+/* ═══════════════════════════════════
+   REGISTRO
+═══════════════════════════════════ */
+function registrarUsuario() {
+  const nombre = document.getElementById('regNombre').value.trim();
+  const email  = document.getElementById('regEmail').value.trim().toLowerCase();
+  const pass   = document.getElementById('regPass').value;
+  const pass2  = document.getElementById('regPass2').value;
+  const errEl  = document.getElementById('regError');
+  const okEl   = document.getElementById('regSuccess');
+  errEl.style.display = 'none'; okEl.style.display = 'none';
+
+  if (!nombre) { errEl.textContent = 'El nombre es obligatorio.'; errEl.style.display = 'block'; return; }
+  if (!email || !email.includes('@gmail.com')) { errEl.textContent = 'Ingresa un correo Gmail válido (@gmail.com).'; errEl.style.display = 'block'; return; }
+  if (pass.length < 6) { errEl.textContent = 'La contraseña debe tener al menos 6 caracteres.'; errEl.style.display = 'block'; return; }
+  if (pass !== pass2)  { errEl.textContent = 'Las contraseñas no coinciden.'; errEl.style.display = 'block'; return; }
+
+  const usuarios = getUsuarios();
+  if (usuarios.find(u => u.email === email)) { errEl.textContent = 'Ya existe una cuenta con ese correo.'; errEl.style.display = 'block'; return; }
+
+  const nuevoUsuario = {
+    nombre, email,
+    passHash: hashSimple(pass),
+    fechaRegistro: new Date().toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' }),
+    activo: true
+  };
+  usuarios.push(nuevoUsuario);
+  setUsuarios(usuarios);
+
+  okEl.textContent = '¡Cuenta creada! Ahora inicia sesión.';
+  okEl.style.display = 'block';
+  document.getElementById('regNombre').value = '';
+  document.getElementById('regEmail').value = '';
+  document.getElementById('regPass').value = '';
+  document.getElementById('regPass2').value = '';
+  setTimeout(() => mostrarTab('login'), 1500);
+}
+
+/* ═══════════════════════════════════
+   LOGIN
+═══════════════════════════════════ */
+function iniciarSesion() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+
+  // Admin maestro
+  if (email === ADMIN_EMAIL && pass === 'admin2025') {
+    sesionActual = { nombre: 'Administrador', email: ADMIN_EMAIL, esAdmin: true };
+    localStorage.setItem(STORAGE_SESSION, JSON.stringify(sesionActual));
+    cerrarAuthModal();
+    actualizarNav();
+    return;
+  }
+
+  const usuarios = getUsuarios();
+  const usuario  = usuarios.find(u => u.email === email && u.passHash === hashSimple(pass) && u.activo);
+  if (!usuario) { errEl.textContent = 'Correo o contraseña incorrectos, o cuenta desactivada.'; errEl.style.display = 'block'; return; }
+
+  sesionActual = { nombre: usuario.nombre, email: usuario.email, esAdmin: false };
+  localStorage.setItem(STORAGE_SESSION, JSON.stringify(sesionActual));
+  cerrarAuthModal();
+  actualizarNav();
+}
+
+/* ═══════════════════════════════════
+   PANEL ADMIN
+═══════════════════════════════════ */
+function abrirAdminModal() {
+  renderAdminPanel();
+  document.getElementById('adminModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarAdminModal() {
+  document.getElementById('adminModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function cerrarAdminSiOverlay(e) {
+  if (e.target === document.getElementById('adminModal')) cerrarAdminModal();
+}
+
+function renderAdminPanel() {
+  const usuarios = getUsuarios();
+  const list = document.getElementById('adminUserList');
+  document.getElementById('adminUserCount').textContent = usuarios.length + ' usuario' + (usuarios.length !== 1 ? 's' : '');
+
+  if (usuarios.length === 0) {
+    list.innerHTML = '<div class="empty-users">No hay usuarios registrados aún.</div>';
+    return;
+  }
+
+  list.innerHTML = usuarios.map((u, i) => `
+    <div class="user-row" id="userrow-${i}">
+      <div class="user-avatar-sm">${u.nombre.charAt(0).toUpperCase()}</div>
+      <div class="user-info">
+        <div class="user-info-name">${u.nombre}</div>
+        <div class="user-info-email">${u.email}</div>
+        <div class="user-info-date">Registrado: ${u.fechaRegistro}</div>
+      </div>
+      ${u.activo
+        ? `<span class="badge-admin">Activo</span>
+           <button class="btn-revoke" onclick="revocarUsuario(${i})">Revocar acceso</button>`
+        : `<span style="background:#fde8e8;color:var(--red);font-size:10px;padding:2px 8px;border-radius:10px;">Suspendido</span>
+           <button class="btn-revoke" style="background:#e6f7ef;color:var(--green);" onclick="reactivarUsuario(${i})">Reactivar</button>`
+      }
+    </div>`).join('');
+}
+
+function revocarUsuario(idx) {
+  const usuarios = getUsuarios();
+  if (!usuarios[idx]) return;
+  usuarios[idx].activo = false;
+  setUsuarios(usuarios);
+  // Si el usuario revocado tiene sesión activa, cerrarla
+  if (sesionActual && sesionActual.email === usuarios[idx].email) cerrarSesion();
+  renderAdminPanel();
+}
+
+function reactivarUsuario(idx) {
+  const usuarios = getUsuarios();
+  if (!usuarios[idx]) return;
+  usuarios[idx].activo = true;
+  setUsuarios(usuarios);
+  renderAdminPanel();
+}
+
+/* ═══════════════════════════════════
+   GALERÍA — FOTOS
+═══════════════════════════════════ */
+function cargarFotosGuardadas() {
+  const fotos = getFotos();
+  fotos.forEach(f => insertarCard(f, false));
+}
+
+function actualizarBotonesCards() {
+  // Mostrar u ocultar botones editar/borrar según sesión
+  document.querySelectorAll('.card-actions').forEach(ca => {
+    ca.style.display = sesionActual ? 'flex' : 'none';
+  });
+}
+
+/* ── SUBIR FOTO ── */
+function abrirModal() {
+  if (!sesionActual) { abrirAuthModal(); return; }
+  fotoDataURL = null;
+  document.getElementById('previewImg').src = '';
+  document.getElementById('previewImg').style.display = 'none';
+  document.getElementById('dropHint').style.display = 'flex';
+  document.getElementById('cambiarBtn').style.display = 'none';
+  document.getElementById('dropZone').classList.remove('has-img');
+  document.getElementById('fotoTitulo').value = '';
+  document.getElementById('fotoDesc').value = '';
+  document.getElementById('fotoCategoria').value = 'Actividad';
+  document.getElementById('fotoAutorDisplay').value = sesionActual.nombre;
+  document.getElementById('descCounter').textContent = '0 / 200';
+  document.getElementById('errorMsg').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+  document.getElementById('uploadModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModal() {
+  document.getElementById('uploadModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function cerrarSiOverlay(e) {
+  if (e.target === document.getElementById('uploadModal')) cerrarModal();
+}
+
+function onFileSelected(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) { mostrarError('La imagen supera los 10 MB. Elige una más pequeña.'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    fotoDataURL = e.target.result;
+    const img = document.getElementById('previewImg');
+    img.src = fotoDataURL; img.style.display = 'block';
+    document.getElementById('dropHint').style.display = 'none';
+    document.getElementById('cambiarBtn').style.display = 'block';
+    document.getElementById('dropZone').classList.add('has-img');
+    ocultarError();
+  };
+  reader.readAsDataURL(file);
+}
+
+function publicarFoto() {
+  if (!sesionActual) { cerrarModal(); abrirAuthModal(); return; }
+  const titulo    = document.getElementById('fotoTitulo').value.trim();
+  const desc      = document.getElementById('fotoDesc').value.trim();
+  const categoria = document.getElementById('fotoCategoria').value;
+  const autor     = sesionActual.nombre;
+  if (!fotoDataURL) { mostrarError('Por favor, elige una foto primero.'); return; }
+  if (!titulo)      { mostrarError('El título es obligatorio.'); return; }
+  if (!desc)        { mostrarError('La descripción breve es obligatoria.'); return; }
+  ocultarError();
+  const btn = document.getElementById('btnPublicar');
+  btn.disabled = true; btn.textContent = 'Publicando...';
+  const hoy = new Date();
+  const fecha = hoy.toLocaleDateString('es-PE', { month: 'long', year: 'numeric' });
+  const fechaCap = fecha.charAt(0).toUpperCase() + fecha.slice(1);
+  const foto = { src: fotoDataURL, titulo, desc, categoria, autor, fecha: fechaCap, id: 'card-' + Date.now() };
+  setTimeout(() => {
+    insertarCard(foto, true);
+    const fotos = getFotos(); fotos.unshift(foto); setFotos(fotos);
+    btn.disabled = false; btn.textContent = 'Publicar en la galería';
+    document.getElementById('successMsg').textContent = '¡Foto publicada con éxito!';
+    document.getElementById('successMsg').style.display = 'block';
+    setTimeout(() => {
+      cerrarModal();
+      const primera = document.querySelector('#galleryGrid .gallery-card[data-id]');
+      if (primera) primera.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 1200);
+  }, 400);
+}
+
+function insertarCard(foto, animar) {
+  const grid = document.getElementById('galleryGrid');
+  const card = document.createElement('div');
+  card.className = 'gallery-card';
+  card.dataset.id = foto.id;
+  if (animar) { card.style.opacity = '0'; card.style.transform = 'translateY(20px)'; card.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; }
+  const accionesVisibles = sesionActual ? 'flex' : 'none';
+  card.innerHTML = `
+    <div class="gallery-img-wrap">
+      <img src="${foto.src}" alt="${foto.titulo}" loading="lazy">
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-text">Ver detalle</div>
+        <div class="card-actions" style="display:${accionesVisibles}" onclick="event.stopPropagation()">
+          <button class="card-btn card-btn-edit" title="Editar" onclick="editarCard('${foto.id}')">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="card-btn card-btn-delete" title="Borrar" onclick="borrarCard('${foto.id}')">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-info">
+      <div class="gallery-user-badge">Subido por ${foto.autor}</div>
+      <div class="gallery-category">${foto.categoria}</div>
+      <div class="gallery-title">${foto.titulo}</div>
+      <div class="gallery-desc">${foto.desc}</div>
+      <div class="gallery-date">${foto.fecha}</div>
+    </div>`;
+  card.onclick = () => abrirLightbox(card);
+  grid.prepend(card);
+  if (animar) { requestAnimationFrame(() => requestAnimationFrame(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; })); }
+}
+
+function mostrarError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; document.getElementById('successMsg').style.display = 'none'; }
+function ocultarError() { document.getElementById('errorMsg').style.display = 'none'; }
+document.getElementById('fotoDesc').addEventListener('input', function() { document.getElementById('descCounter').textContent = this.value.length + ' / 200'; });
+
+/* ── EDITAR ── */
+function editarCard(cardId) {
+  if (!sesionActual) { abrirAuthModal(); return; }
+  const card = document.querySelector('[data-id="' + cardId + '"]');
+  if (!card) return;
+  editDataURL = card.querySelector('img').src;
+  document.getElementById('editCardId').value = cardId;
+  document.getElementById('editPreviewImg').src = editDataURL;
+  document.getElementById('editTitulo').value = card.querySelector('.gallery-title')?.textContent || '';
+  const dv = card.querySelector('.gallery-desc')?.textContent || '';
+  document.getElementById('editDesc').value = dv;
+  document.getElementById('editDescCounter').textContent = dv.length + ' / 200';
+  document.getElementById('editCategoria').value = card.querySelector('.gallery-category')?.textContent?.trim() || 'General';
+  const badgeEl = card.querySelector('.gallery-user-badge');
+  document.getElementById('editAutor').value = badgeEl ? badgeEl.textContent.replace('Subido por ', '') : '';
+  document.getElementById('editErrorMsg').style.display = 'none';
+  document.getElementById('editModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function onEditFileSelected(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) { alert('La imagen supera los 10 MB.'); return; }
+  const reader = new FileReader();
+  reader.onload = function(e) { editDataURL = e.target.result; document.getElementById('editPreviewImg').src = editDataURL; };
+  reader.readAsDataURL(file);
+}
+
+function guardarEdicion() {
+  const cardId    = document.getElementById('editCardId').value;
+  const titulo    = document.getElementById('editTitulo').value.trim();
+  const desc      = document.getElementById('editDesc').value.trim();
+  const categoria = document.getElementById('editCategoria').value;
+  const autor     = document.getElementById('editAutor').value.trim();
+  const errEl     = document.getElementById('editErrorMsg');
+  if (!titulo) { errEl.textContent = 'El título es obligatorio.'; errEl.style.display = 'block'; return; }
+  if (!desc)   { errEl.textContent = 'La descripción es obligatoria.'; errEl.style.display = 'block'; return; }
+  const card = document.querySelector('[data-id="' + cardId + '"]');
+  if (!card) { cerrarEditModal(); return; }
+  card.querySelector('img').src = editDataURL;
+  card.querySelector('img').alt = titulo;
+  card.querySelector('.gallery-title').textContent = titulo;
+  const descEl = card.querySelector('.gallery-desc'); if (descEl) descEl.textContent = desc;
+  card.querySelector('.gallery-category').textContent = categoria;
+  let badgeEl = card.querySelector('.gallery-user-badge');
+  if (autor) { if (!badgeEl) { badgeEl = document.createElement('div'); badgeEl.className = 'gallery-user-badge'; card.querySelector('.gallery-info').prepend(badgeEl); } badgeEl.textContent = 'Subido por ' + autor; }
+  else if (badgeEl) badgeEl.remove();
+  sincronizarFotosStorage();
+  cerrarEditModal();
+}
+
+function cerrarEditModal() { document.getElementById('editModal').classList.remove('active'); document.body.style.overflow = ''; editDataURL = null; }
+function cerrarEditSiOverlay(e) { if (e.target === document.getElementById('editModal')) cerrarEditModal(); }
+document.getElementById('editDesc').addEventListener('input', function() { document.getElementById('editDescCounter').textContent = this.value.length + ' / 200'; });
+
+/* ── BORRAR ── */
+function borrarCard(cardId) {
+  if (!sesionActual) { abrirAuthModal(); return; }
+  document.getElementById('deleteCardId').value = cardId;
+  document.getElementById('deleteModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function confirmarBorrar() {
+  const cardId = document.getElementById('deleteCardId').value;
+  const card   = document.querySelector('[data-id="' + cardId + '"]');
+  if (card) {
+    card.style.transition = 'opacity 0.3s, transform 0.3s';
+    card.style.opacity = '0'; card.style.transform = 'scale(0.92)';
+    setTimeout(() => { card.remove(); sincronizarFotosStorage(); }, 300);
+  }
+  cerrarDeleteModal();
+}
+function cerrarDeleteModal() { document.getElementById('deleteModal').classList.remove('active'); document.body.style.overflow = ''; }
+function cerrarDeleteSiOverlay(e) { if (e.target === document.getElementById('deleteModal')) cerrarDeleteModal(); }
+
+/* ── SINCRONIZAR STORAGE ── */
+function sincronizarFotosStorage() {
+  const cards = document.querySelectorAll('#galleryGrid .gallery-card[data-id]');
+  const fotos = Array.from(cards).map(card => ({
+    id:        card.dataset.id,
+    src:       card.querySelector('img').src,
+    titulo:    card.querySelector('.gallery-title')?.textContent || '',
+    desc:      card.querySelector('.gallery-desc')?.textContent  || '',
+    categoria: card.querySelector('.gallery-category')?.textContent?.trim() || '',
+    autor:     card.querySelector('.gallery-user-badge') ? card.querySelector('.gallery-user-badge').textContent.replace('Subido por ','') : '',
+    fecha:     card.querySelector('.gallery-date')?.textContent || ''
+  }));
+  setFotos(fotos);
+}
+
+/* ═══════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════ */
+function abrirLightbox(card) {
+  document.getElementById('lbImg').src   = card.querySelector('img').src;
+  document.getElementById('lbImg').alt   = card.querySelector('img').alt;
+  document.getElementById('lbTitle').textContent = card.querySelector('.gallery-title')?.textContent || '';
+  document.getElementById('lbDesc').textContent  = card.querySelector('.gallery-desc')?.textContent  || '';
+  document.getElementById('lbDate').textContent  = card.querySelector('.gallery-date')?.textContent  || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarLightbox(e, force) {
+  if (force || (e && e.target === document.getElementById('lightbox'))) {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+/* ═══════════════════════════════════
+   NAV HAMBURGER
+═══════════════════════════════════ */
+const hamburger = document.getElementById('hamburger');
+const navLinks  = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+/* ═══════════════════════════════════
+   ESC GLOBAL
+═══════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    cerrarModal(); cerrarAuthModal(); cerrarAdminModal();
+    cerrarEditModal(); cerrarDeleteModal(); cerrarLightbox(null, true);
+  }
+});
+
+/* ═══════════════════════════════════
+   ANIMACIÓN SCROLL
+═══════════════════════════════════ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.info-card, .gallery-card').forEach(el => {
+  el.style.opacity = '0'; el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+/* ═══════════════════════════════════
+   INIT
+═══════════════════════════════════ */
+cargarSesion();
+</script>
+</body>
+</html>
